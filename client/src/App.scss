@@ -1,8 +1,58 @@
-body {
-  max-width: 650px;
-  margin: 50px auto 0;
+html {
+  background: #fbeafa;
 }
 
-h3 {
-  color: #123456;
+body {
+  max-width: 450px;
+  min-height: 450px;
+  margin: 50px auto 0;
+  background: #fffbe6;
+  text-align: center;
+  line-height: 1.4em
+}
+
+.hero-section {
+  min-height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.question-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .question {
+    font-size: 1em;
+    font-weight: 500;
+  }
+}
+
+.submit-section {
+  .button {
+    width: 100%;
+    margin: 5px 0;
+    padding: 5px 0;
+    border: 1px solid green;
+
+    &:hover {
+      transition: background 1s;
+      background: green;
+    }
+  }
+}
+
+.options-section {
+  .option {
+    width: 100%;
+    margin: 5px 0;
+    padding: 5px 0;
+    border: 1px solid red;
+
+    &:hover {
+      transition: background 1s;
+      background: red;
+    }
+  }
 }
