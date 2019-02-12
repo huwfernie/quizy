@@ -3,10 +3,11 @@ const Question = require('../models/question');
 /*
 Here we have the routes:
   indexAll : return all questions
-  createRoute : Make one new question
-  showRoute : show details of one question
-  updateRoute : update details of one question
-  deleteRout : delete one question
+  randomRoute : return a random question
+  createRoute : make one new question
+  showRoute : show one specific question
+  updateRoute : update one specific question
+  deleteRout : delete one specific question
 */
 
 function indexAllRoute(req, res, next) {
