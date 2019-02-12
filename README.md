@@ -50,8 +50,11 @@ The API will be accessible at `http://localhost:4000/api`
 
 Example api calls:
 
-GET
+GET - returns all questions
 http://localhost:4000/api/allQuestions
+
+GET - returns a random question
+http://localhost:4000/api/question
 
 POST
 http://localhost:4000/api/question
@@ -61,7 +64,7 @@ http://localhost:4000/api/question
   option_2: "one",
   option_3: "one",
   option_4: "one",
-  answer: 1,
+  answer: 1
 }
 
 GET
@@ -75,7 +78,7 @@ http://localhost:4000/api/question/5c631a430b922bee5586e071
   option_2: "one",
   option_3: "one",
   option_4: "one",
-  answer: 1,
+  answer: 1
 }
 
 DELETE
