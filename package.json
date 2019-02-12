@@ -1,0 +1,28 @@
+{
+  "name": "tdd-express-api",
+  "version": "1.0.0",
+  "engines": {
+    "node": "8.12.0",
+    "npm": "6.4.1"
+  },
+  "repository": "gitHub",
+  "description": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "heroku-postbuild": "cd client && npm install && npm run build"
+  },
+  "author": "Huw Fernie",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.74.0",
+    "bluebird": "^3.5.0",
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "mongoose": "^4.8.6",
+    "morgan": "^1.8.1",
+    "request": "^2.81.0",
+    "request-promise": "^4.2.1"
+  },
+  "devDependencies": {}
+}
