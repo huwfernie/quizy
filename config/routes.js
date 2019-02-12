@@ -7,6 +7,7 @@ router.route('/allQuestions')
   .get(questions.index);
 
 router.route('/question')
+  .get(questions.random)
   .post(questions.create);
 
 router.route('/question/:id')

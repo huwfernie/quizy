@@ -17,6 +17,18 @@ function indexAllRoute(req, res, next) {
     .catch(next);
 }
 
+function randomRoute(req, res, next) {
+  Question
+    .find()
+    .exec()
+    .then((questions) => {
+      const random = Math.floor(Math.random() * questions.length);
+      const question = questions[random];
+      res.json(question);
+    })
+    .catch(next);
+}
+
 function createRoute(req, res, next) {
   Question
     .create(req.body)
@@ -67,6 +79,7 @@ function deleteRoute(req, res, next) {
 
 module.exports = {
   index: indexAllRoute,
+  random: randomRoute,
   create: createRoute,
   show: showRoute,
   update: updateRoute,
