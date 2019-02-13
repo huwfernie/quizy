@@ -1,16 +1,43 @@
+$appBackground: #4ab94a;
+$appBackgroundContrast: #4dde4d;
+$optionHighlight: #ff7474;
+
 html {
   background: #fbeafa;
 }
 
 body {
-  max-width: 450px;
-  min-height: 450px;
+  width: 320px;
+  height: 564px;
   margin: 50px auto 0;
-  background: #fffbe6;
+  background: $appBackground;
   text-align: center;
-  line-height: 1.4em
+  line-height: 1.4em;
+  border-radius: 15px;
+  border: 3px solid $appBackground;
 }
 
+#root {
+  height: 100%;
+}
+
+.App {
+  height: 100%;
+  $padding: 10px;
+  padding: 0 $padding $padding $padding;
+  display: flex;
+  flex-direction: column;
+
+  * {
+    box-sizing: border-box;
+  }
+}
+
+.section {
+  background: white;
+  margin: 10px 0;
+  border-radius: 10px;
+}
 .hero-section {
   min-height: 100px;
   display: flex;
@@ -31,28 +58,30 @@ body {
 
 .submit-section {
   .button {
-    width: 100%;
-    margin: 5px 0;
-    padding: 5px 0;
-    border: 1px solid green;
+    margin: 6px;
+    padding: 5px;
+    border: 1px solid $appBackgroundContrast;
+    box-sizing: border-box;
+    border-radius: 5px;
 
     &:hover {
       transition: background 1s;
-      background: green;
+      background: $appBackgroundContrast;
     }
   }
 }
 
 .options-section {
   .option {
-    width: 100%;
-    margin: 5px 0;
-    padding: 5px 0;
-    border: 1px solid red;
+    margin: 6px;
+    padding: 5px;
+    border: 1px solid $optionHighlight;
+    box-sizing: border-box;
+    border-radius: 5px;
 
     &:hover {
       transition: background 1s;
-      background: red;
+      background: $optionHighlight;
     }
   }
 }
