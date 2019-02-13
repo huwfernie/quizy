@@ -82,6 +82,13 @@ body {
     &:hover {
       transition: background 1s;
       background: $optionHighlight;
+      opacity: 0.5;
+    }
+
+    &.selected {
+      background: $optionHighlight;
+      color: white;
+      opacity: 1;
     }
   }
 }
