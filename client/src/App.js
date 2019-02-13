@@ -13,13 +13,19 @@ class App extends Component {
   }
 
   componentDidMount() {
+    this.Question();
+  }
+
+  getQuestion() {
     fetch("http://localhost:4000/api/question/")
       .then(res => res.json())
       .then(
         (result) => {
           this.setState({
             isLoaded: true,
-            data: result
+            data: result,
+            myAnswer: null,
+            answerID: null
           });
         },
         // Note: it's important to handle errors here
@@ -33,6 +39,7 @@ class App extends Component {
         }
       )
   }
+  Question = this.getQuestion.bind(this);
 
   render() {
     const { error, isLoaded, data, myAnswer, answerID } = this.state;
@@ -83,14 +90,7 @@ class App extends Component {
         myAnswer: answer,
         answerID: answerID
       });
-
-      //remove all options with selected class;
-      const all = document.querySelectorAll('.selected');
-      if(all) {
-        all.forEach((node)=> {
-          node.classList.toggle('selected');
-        })
-      }
+      this.removeSelectedBound();
       e.target.classList.add('selected');
     } else {
       // User has de-selected the same answer
@@ -99,30 +99,35 @@ class App extends Component {
         myAnswer: null,
         answerID: null
       });
-
       //remove all options with selected class;
       e.target.classList.remove('selected');
     }
   }
 
+  removeSelectedBound = this.removeSelected.bind(this);
+  removeSelected(){
+    const all = document.querySelectorAll('.selected');
+    if(all) {
+      all.forEach((node)=> {
+        node.classList.toggle('selected');
+      })
+    }
+  }
+
   submitAnswer(ans){
     if(ans){
-      console.log('This question: ',this.state.data.id);
-      console.log('This answer: ',ans);
-      var xhr = new XMLHttpRequest();
-      xhr.open("POST", 'http://localhost:4000/api/answer', true);
-      //Send the proper header information along with the request
-      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-      xhr.onreadystatechange = function() { // Call a function when the state changes.
-          if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-              // Request finished. Do processing here.
-          }
-      }
-      xhr.send({id:this.state.data.id, answer:ans});
-
-
+      fetch(`http://localhost:4000/api/answer?id=${this.state.data.id}&answer=${ans}`)
+        .then(res => res.json())
+        .then((result) => {
+          this.setState({
+            answerID: null,
+            myAnswer: result
+          })
+          setTimeout(this.Question,1000);
+          setTimeout(this.removeSelectedBound,1000);
+          // this.Question();
+      });
     }
-
   }
 }
 export default App

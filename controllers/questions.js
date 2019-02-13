@@ -78,11 +78,31 @@ function deleteRoute(req, res, next) {
     .catch(next);
 }
 
+function answerRoute(req, res, next) {
+  console.log('answerRoute');
+  // console.log(req);
+  console.log('query',req.query);
+  Question
+    .findById(req.query.id)
+    .exec()
+    .then((question) => {
+      if(!question) return res.notFound();
+      // console.log('looking at ',question.answer, 'and ',req.query.answer);
+      if(question.answer == req.query.answer) {
+        res.json('Winner');
+      } else {
+        res.json('Nope');
+      }
+    })
+    .catch(next);
+}
+
 module.exports = {
   index: indexAllRoute,
   random: randomRoute,
   create: createRoute,
   show: showRoute,
   update: updateRoute,
-  delete: deleteRoute
+  delete: deleteRoute,
+  answer: answerRoute
 };
