@@ -126,6 +126,11 @@ class App extends Component {
           setTimeout(this.Question,1000);
           setTimeout(this.removeSelectedBound,1000);
           // this.Question();
+      },
+      (error) => {
+        this.setState({
+          error
+        });
       });
     }
   }
@@ -149,8 +154,12 @@ class App extends Component {
       })
       setTimeout(this.Question,1000);
       setTimeout(this.removeSelectedBound,1000);
+    },
+    (error) => {
+      this.setState({
+        error
+      });
     })
-    .catch(error => console.error('Error:', error));
   }
 }
 export default App
