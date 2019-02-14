@@ -1,0 +1,48 @@
+body {
+  color: black;
+}
+
+.item-list {
+  border: 0px solid red;
+}
+
+.container {
+  margin-top: 20px;
+  border: 1px solid red;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.item {
+  border: 0px solid red;
+  width: 16%;
+  padding: 5px;
+  text-align: center;
+}
+
+.question {
+
+}
+.option_1 {
+
+}
+.option_2 {
+
+}
+.option_3 {
+
+}
+.option_4 {
+
+}
+.answer {
+
+}
+.id {
+
+}
+.correct {
+  background: green;
+}
