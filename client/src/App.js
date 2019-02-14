@@ -132,23 +132,26 @@ class App extends Component {
 
   //update this to fetch and it should work
   submitAnswerPost(ans){
-    if(ans){
-      const xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
-      xmlhttp.open("POST", 'http://localhost:4000/api/answer', true);
-      xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-      xmlhttp.send(JSON.stringify({ id: this.state.data.id, answer: ans }))
-      .then(res => res.json())
-      .then((result) => {
-        this.setState({
-          answerID: null,
-          myAnswer: result
-        })
-        setTimeout(this.Question,1000);
-        setTimeout(this.removeSelectedBound,1000);
-        // this.Question();
-      });
+    var url = 'http://localhost:4000/api/answer';
+    var data = { id: this.state.data.id, answer: ans };
 
-    }
+    fetch(url, {
+      method: 'POST', // or 'PUT'
+      body: JSON.stringify(data), // data can be `string` or {object}!
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    }).then(res => res.json())
+    .then((response) => {
+      this.setState({
+        answerID: null,
+        myAnswer: response
+      })
+      setTimeout(this.Question,1000);
+      setTimeout(this.removeSelectedBound,1000);
+      console.log('Success:', JSON.stringify(response));
+    })
+    .catch(error => console.error('Error:', error));
   }
 }
 export default App

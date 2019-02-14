@@ -79,16 +79,12 @@ function deleteRoute(req, res, next) {
 }
 
 function getAnswerRoute(req, res, next) {
-  console.log('GetAnswerRoute');
-  // console.log(req);
-  console.log('query',req.query);
   Question
     .findById(req.query.id)
     .exec()
     .then((question) => {
       if(!question) return res.notFound();
-      // console.log('looking at ',question.answer, 'and ',req.query.answer);
-      if(question.answer == req.query.answer) {
+      if(Number(question.answer) === Number(req.query.answer)) {
         res.json('Winner');
       } else {
         res.json('Nope');
@@ -98,16 +94,12 @@ function getAnswerRoute(req, res, next) {
 }
 
 function postAnswerRoute(req, res, next) {
-  console.log('PostAnswerRoute');
-  // console.log(req);
-  console.log('body',req.body);
   Question
     .findById(req.body.id)
     .exec()
     .then((question) => {
       if(!question) return res.notFound();
-      // console.log('looking at ',question.answer, 'and ',req.query.answer);
-      if(question.answer == req.body.answer) {
+      if(Number(question.answer) === Number(req.body.answer)) {
         res.json('Winner');
       } else {
         res.json('Nope');
