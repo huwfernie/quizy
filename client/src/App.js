@@ -149,7 +149,6 @@ class App extends Component {
       })
       setTimeout(this.Question,1000);
       setTimeout(this.removeSelectedBound,1000);
-      console.log('Success:', JSON.stringify(response));
     })
     .catch(error => console.error('Error:', error));
   }
