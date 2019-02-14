@@ -78,8 +78,8 @@ function deleteRoute(req, res, next) {
     .catch(next);
 }
 
-function answerRoute(req, res, next) {
-  console.log('answerRoute');
+function getAnswerRoute(req, res, next) {
+  console.log('GetAnswerRoute');
   // console.log(req);
   console.log('query',req.query);
   Question
@@ -97,6 +97,33 @@ function answerRoute(req, res, next) {
     .catch(next);
 }
 
+function postAnswerRoute(req, res, next) {
+  console.log('PostAnswerRoute');
+  // console.log(req);
+  console.log('body',req.body);
+  Question
+    .findById(req.body.id)
+    .exec()
+    .then((question) => {
+      if(!question) return res.notFound();
+      // console.log('looking at ',question.answer, 'and ',req.query.answer);
+      if(question.answer == req.body.answer) {
+        res.json('Winner');
+      } else {
+        res.json('Nope');
+      }
+    })
+    .catch(next);
+}
+
+function corsResponse(req, res) {
+  // console.log('corsResponse');
+  res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+  res.header('Access-Control-Allow-Headers', 'content-type');
+  res.header('Access-Control-Allow-Methods', 'OPTIONS');
+  res.status(200).send();
+}
+
 module.exports = {
   index: indexAllRoute,
   random: randomRoute,
@@ -104,5 +131,7 @@ module.exports = {
   show: showRoute,
   update: updateRoute,
   delete: deleteRoute,
-  answer: answerRoute
+  answerG: getAnswerRoute,
+  answerP: postAnswerRoute,
+  cors: corsResponse
 };

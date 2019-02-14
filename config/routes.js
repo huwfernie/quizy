@@ -16,7 +16,9 @@ router.route('/question/:id')
   .delete(questions.delete);
 
 router.route('/answer')
-  .get(questions.answer);
+  .options(questions.cors)
+  .get(questions.answerG)
+  .post(questions.answerP);
 
 // catch all - 404
 router.all('/*', (req, res) => res.notFound());

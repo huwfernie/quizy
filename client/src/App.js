@@ -57,7 +57,7 @@ class App extends Component {
             <h2 className="question">{data.question}</h2>
           </div>
           <div className="section submit-section">
-            <div className="button" data-my-answer={answerID} onClick={ event => this.submitAnswer(answerID)}>{ myAnswer || 'Pick your answer'}</div>
+            <div className="button" data-my-answer={answerID} onClick={ event => this.submitAnswerPost(answerID)}>{ myAnswer || 'Pick your answer'}</div>
           </div>
           <div className="section options-section">
             <div className="option" id="option_1" onClick={ event => this.selectAnswer(event)}>
@@ -114,7 +114,7 @@ class App extends Component {
     }
   }
 
-  submitAnswer(ans){
+  submitAnswerGet(ans){
     if(ans){
       fetch(`http://localhost:4000/api/answer?id=${this.state.data.id}&answer=${ans}`)
         .then(res => res.json())
@@ -127,6 +127,27 @@ class App extends Component {
           setTimeout(this.removeSelectedBound,1000);
           // this.Question();
       });
+    }
+  }
+
+  //update this to fetch and it should work
+  submitAnswerPost(ans){
+    if(ans){
+      const xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
+      xmlhttp.open("POST", 'http://localhost:4000/api/answer', true);
+      xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+      xmlhttp.send(JSON.stringify({ id: this.state.data.id, answer: ans }))
+      .then(res => res.json())
+      .then((result) => {
+        this.setState({
+          answerID: null,
+          myAnswer: result
+        })
+        setTimeout(this.Question,1000);
+        setTimeout(this.removeSelectedBound,1000);
+        // this.Question();
+      });
+
     }
   }
 }
