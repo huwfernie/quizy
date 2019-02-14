@@ -8,7 +8,7 @@ body {
 
 .container {
   margin-top: 20px;
-  border: 1px solid red;
+  border: 1px solid orange;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -23,7 +23,8 @@ body {
 }
 
 .question {
-
+  background: lightgrey;
+  font-weight: 500;
 }
 .option_1 {
 
@@ -41,8 +42,8 @@ body {
 
 }
 .id {
-
+  font-size: 10px;
 }
 .correct {
-  background: green;
+  background: lightgreen;
 }
