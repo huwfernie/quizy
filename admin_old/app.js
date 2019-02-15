@@ -22,7 +22,7 @@ function displayResult(allQuestions) {
 
     const questionData = allQuestions[i];
     console.log(questionData);
-    const keys = ['question','option_1','option_2','option_3','option_4','answer','id'];
+    const keys = ['question','option_1','option_2','option_3','option_4','answer','status','id'];
     keys.forEach((key,iter)=>{
       const part = document.createElement('div');
       part.innerHTML = questionData[key];
@@ -30,6 +30,12 @@ function displayResult(allQuestions) {
       part.classList.add('item');
       if(iter == questionData.answer) {
         part.classList.add('correct');
+      }
+      if (key==='id') {
+        const link = document.createElement('a');
+        link.href=`../question/${questionData[key]}`
+        link.appendChild(part);
+        container.appendChild(link);
       }
       container.appendChild(part);
       console.log(questionData[key]);
