@@ -6,7 +6,8 @@ const quizySchema = new mongoose.Schema({
   option_2: { type: String, required: true },//,
   option_3: { type: String, required: true },//,
   option_4: { type: String, required: true },
-  answer: { type: Number, required: true }//,
+  answer: { type: Number, required: true },//,
+  status: { type: String, required: false, default: 'pending' }//,
   // category: { type: String, required: true },
   // location: {
   //   name: { type: String, required: true },

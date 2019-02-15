@@ -13,28 +13,32 @@ const seedData = [{
   option_2: '2',
   option_3: '3',
   option_4: '4',
-  answer: 4
+  answer: 4,
+  status: 'approved'
 },{
   question: 'What\'s the highest mountain?',
   option_1: 'Ben Nevis',
   option_2: 'Mt Etna',
   option_3: 'Mt Everest',
   option_4: 'Mt Killimanjaro',
-  answer: 3
+  answer: 3,
+  status: 'approved'
 },{
   question: 'Who\'s a girl?',
   option_1: 'king George 1st',
   option_2: 'Queen Elizabeth',
   option_3: 'king George 3rd',
   option_4: 'king George 2nd',
-  answer: 2
+  answer: 2,
+  status: 'approved'
 },{
   question: 'What\'s biggest?',
   option_1: 'a watermelon',
   option_2: 'an olive',
   option_3: 'a mango',
   option_4: 'a grape',
-  answer: 1
+  answer: 1,
+  status: 'approved'
 }];
 
 Question

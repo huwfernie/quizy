@@ -34,7 +34,7 @@ function displayResult(allQuestions) {
       if (key=='id') {
         const link = document.createElement('a');
         link.href=`../question/${questionData[key]}`
-        link.innerHTML = part;
+        link.appendChild(part);
         container.appendChild(link);
       }
       container.appendChild(part);
