@@ -31,10 +31,10 @@ function displayResult(allQuestions) {
       if(iter == questionData.answer) {
         part.classList.add('correct');
       }
-      if (key==='id') {
+      if (key=='id') {
         const link = document.createElement('a');
         link.href=`../question/${questionData[key]}`
-        link.appendChild(part);
+        link.innerHTML = part;
         container.appendChild(link);
       }
       container.appendChild(part);

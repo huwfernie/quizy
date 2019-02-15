@@ -25,9 +25,9 @@ app.use(customResponses);
 app.use('/api', routes);
 const path = require('path');
 
-app.use('/admin', express.static(path.join(__dirname, 'admin/')));
+app.use('/admin', express.static(path.join(__dirname, '/admin_old/')));
 app.get('/admin', (req, res) => {
-  res.sendFile(path.join(__dirname + 'admin/index.html'))
+  res.sendFile(path.join(__dirname + '/admin_old/index.html'))
 });
 // app.get('/*', (req, res) => res.sendFile(`${__dirname}/public/index.html`));
 
