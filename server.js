@@ -25,14 +25,14 @@ app.use(customResponses);
 app.use('/api', routes);
 const path = require('path');
 
-app.use('/admin', express.static(path.join(__dirname, '/admin_old/')));
+app.use('/admin', express.static(path.join(__dirname, 'admin/bulid/')));
 app.get('/admin', (req, res) => {
-  res.sendFile(path.join(__dirname + '/admin_old/index.html'))
+  res.sendFile(path.join(__dirname + '/admin/public/index.html'))
 });
 // app.get('/*', (req, res) => res.sendFile(`${__dirname}/public/index.html`));
 
 // Serve static files from the React frontend app
-app.use(express.static(path.join(__dirname, 'client/build')));
+app.use(express.static(path.join(__dirname, 'client/build/')));
 // Anything that doesn't match the above, send back index.html
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname + '/client/public/index.html'));
