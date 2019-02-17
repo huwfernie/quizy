@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import QuestionList from './components/question_list'
+import QuestionCreate from './components/question_create'
 
 class App extends Component {
   constructor(props) {
@@ -48,6 +49,8 @@ class App extends Component {
         <h1>Quizzy Admin Page</h1>
         <h2>All Questions in the database:</h2>
           <QuestionList questions={this.state.questions} />
+        <h2>Create a new question:</h2>
+          <QuestionCreate getQuestions={this.Questions} newQuestion={{}}/>
       </div>
     );
   }

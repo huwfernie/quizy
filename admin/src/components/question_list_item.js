@@ -17,7 +17,7 @@ const QuestionListItem = (props) => {
       <div className={"item option-2" + (answer === 2 ? " correct" : "")}>{option_2}</div>
       <div className={"item option-3" + (answer === 3 ? " correct" : "")}>{option_3}</div>
       <div className={"item option-4" + (answer === 4 ? " correct" : "")}>{option_4}</div>
-      <div className="item answer ">{answer}</div>
+      <div className="item answer">{answer}</div>
       <div className="item status">{status}</div>
       <a className="item id" href="./#"><div>{id}</div></a>
     </div>

@@ -18,7 +18,7 @@ const QuestionList = (props) => {
           <div className="item">option_2</div>
           <div className="item">option_3</div>
           <div className="item">option_4</div>
-          <div className="item ">answer</div>
+          <div className="item">answer</div>
           <div className="item">status</div>
           <div className="item">id</div>
         </div>

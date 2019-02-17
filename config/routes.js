@@ -7,6 +7,7 @@ router.route('/allQuestions')
   .get(questions.index);
 
 router.route('/question')
+  .options(questions.cors)
   .get(questions.random)
   .post(questions.create);
 
