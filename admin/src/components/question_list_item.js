@@ -20,6 +20,7 @@ const QuestionListItem = (props) => {
       <div className="item answer">{answer}</div>
       <div className="item status">{status}</div>
       <a className="item id" href="./#"><div>{id}</div></a>
+      <div className="item deleteQuestion" onClick={() => {props.deleteMe(id)}}>Delete</div>
     </div>
   );
 };

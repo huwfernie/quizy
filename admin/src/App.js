@@ -41,14 +41,25 @@ class App extends Component {
         }
       )
   }
+  deleteQuestion(id) {
+    const url = `http://localhost:4000/api/question/${id}`;
+    return fetch(url, {
+        method: "DELETE",
+    })
+    .then(response => {
+      // response.json()
+      this.Questions();
+    }) // parses response to JSON
+  }
   Questions = this.getQuestions.bind(this);
+  DeleteQuestion = this.deleteQuestion.bind(this);
 
   render() {
     return (
       <div className="App">
         <h1>Quizzy Admin Page</h1>
         <h2>All Questions in the database:</h2>
-          <QuestionList questions={this.state.questions} />
+          <QuestionList deleteMe={this.DeleteQuestion} questions={this.state.questions} />
         <h2>Create a new question:</h2>
           <QuestionCreate getQuestions={this.Questions} newQuestion={{}}/>
       </div>

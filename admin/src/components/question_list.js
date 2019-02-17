@@ -3,9 +3,10 @@ import QuestionListItem from './question_list_item';
 
 const QuestionList = (props) => {
   // console.log(props);
+  const deleteMe =  props.deleteMe;
   const questionList = props.questions.map((question) => {
     return (
-      <QuestionListItem question={question} key={question.id} />
+      <QuestionListItem deleteMe={deleteMe} question={question} key={question.id} />
     )
   });
 

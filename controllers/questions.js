@@ -113,7 +113,7 @@ function corsResponse(req, res) {
   res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
   res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
   res.header('Access-Control-Allow-Headers', 'content-type');
-  res.header('Access-Control-Allow-Methods', 'OPTIONS');
+  res.header('Access-Control-Allow-Methods', 'OPTIONS','DELETE');
   res.status(200).send();
 }
 
