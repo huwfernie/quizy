@@ -1,4 +1,5 @@
 const path = require('path');
+console.log('my path is ',path);
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
@@ -16,7 +17,7 @@ module.exports = {
     port: 3000,
     proxy: {
       '^/api/*': {
-        target: 'http://localhost:8080/api/',
+        target: 'http://localhost:4000/api/',
         secure: 'false'
       }
     }

@@ -12,7 +12,7 @@ const QuestionListItem = (props) => {
 
   return (
     <div className="container">
-      <div className="item question">{question}</div>
+      <div className="item question" onClick={() => {props.updateActiveQuestion(props.question)}}>{question}</div>
       <div className={"item option-1" + (answer === 1 ? " correct" : "")}>{option_1}</div>
       <div className={"item option-2" + (answer === 2 ? " correct" : "")}>{option_2}</div>
       <div className={"item option-3" + (answer === 3 ? " correct" : "")}>{option_3}</div>

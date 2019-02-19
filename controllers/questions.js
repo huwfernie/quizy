@@ -38,6 +38,7 @@ function createRoute(req, res, next) {
 }
 
 function showRoute(req, res, next) {
+  console.log('show', req.params.id);
   Question
     .findById(req.params.id)
     .exec()
@@ -49,6 +50,8 @@ function showRoute(req, res, next) {
 }
 
 function updateRoute(req, res, next) {
+  // console.log('body',JSON.stringify(req.body));
+  // console.log('ID',req.params.id);
   Question
     .findById(req.params.id)
     .exec()
@@ -61,7 +64,9 @@ function updateRoute(req, res, next) {
 
       return question.save();
     })
-    .then((question) => res.json(question))
+    .then((question) => {
+      res.json(question);
+    })
     .catch(next);
 }
 
@@ -109,11 +114,12 @@ function postAnswerRoute(req, res, next) {
 }
 
 function corsResponse(req, res) {
+  // This should not be needed now the proxy is working
   // console.log('corsResponse');
-  res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
   res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
+  res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
   res.header('Access-Control-Allow-Headers', 'content-type');
-  res.header('Access-Control-Allow-Methods', 'OPTIONS','DELETE');
+  res.header('Access-Control-Allow-Methods', 'OPTIONS','DELETE','PUT');
   res.status(200).send();
 }
 

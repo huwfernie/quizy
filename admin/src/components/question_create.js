@@ -15,7 +15,7 @@ class QuestionCreate extends React.Component {
   }
 
   newQuestionPost(data){
-    var url = 'http://localhost:4000/api/question';
+    var url = './api/question';
 
     fetch(url, {
       method: 'POST', // or 'PUT'

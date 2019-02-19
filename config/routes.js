@@ -12,7 +12,7 @@ router.route('/question')
   .post(questions.create);
 
 router.route('/question/:id')
-  .options(questions.cors)
+  // .options(questions.cors)
   .get(questions.show)
   .put(questions.update)
   .delete(questions.delete);

@@ -2,11 +2,11 @@ import React from 'react';
 import QuestionListItem from './question_list_item';
 
 const QuestionList = (props) => {
-  // console.log(props);
   const deleteMe =  props.deleteMe;
+  const updateActiveQuestion =  props.updateActiveQuestion;
   const questionList = props.questions.map((question) => {
     return (
-      <QuestionListItem deleteMe={deleteMe} question={question} key={question.id} />
+      <QuestionListItem deleteMe={deleteMe} updateActiveQuestion={updateActiveQuestion} question={question} key={question.id} />
     )
   });
 
