@@ -6,9 +6,13 @@ class App extends Component {
     this.state = {
       error: null,
       isLoaded: false,
-      data: {},
+      data: {
+        question: '...loading a question'
+      },
       myAnswer: null,
-      answerID: null
+      answerID: null,
+      score: 0,
+      questionCount: -1
     };
   }
 
@@ -17,7 +21,7 @@ class App extends Component {
   }
 
   getQuestion() {
-    fetch("http://localhost:4000/api/question/")
+    fetch("./api/question/")
       .then(res => res.json())
       .then(
         (result) => {
@@ -25,12 +29,10 @@ class App extends Component {
             isLoaded: true,
             data: result,
             myAnswer: null,
-            answerID: null
+            answerID: null,
+            questionCount: this.state.questionCount + 1
           });
         },
-        // Note: it's important to handle errors here
-        // instead of a catch() block so that we don't swallow
-        // exceptions from actual bugs in components.
         (error) => {
           this.setState({
             isLoaded: true,
@@ -41,8 +43,78 @@ class App extends Component {
   }
   Question = this.getQuestion.bind(this);
 
+  selectAnswer(event) {
+    //get the option id
+    const answerID = event.target.id.replace('option_','');
+    const answer = 'Submit Answer: ' + answerID;
+
+    //User selects a new answer
+    if(answerID !== this.state.answerID) {
+      //Update submit section
+      this.setState({
+        myAnswer: answer,
+        answerID: answerID
+      });
+      this.RemoveSelected();
+      event.target.classList.add('selected');
+    } else {
+      // User has de-selected the same answer
+      //Update submit section
+      this.setState({
+        myAnswer: null,
+        answerID: null
+      });
+      //remove selected class from this option;
+      event.target.classList.remove('selected');
+    }
+  }
+
+  removeSelected(){
+    const all = document.querySelectorAll('.selected');
+    if(all) {
+      all.forEach((node)=> {
+        node.classList.toggle('selected');
+      })
+    }
+  }
+  RemoveSelected = this.removeSelected.bind(this);
+
+  handleWinOrLoose(response) {
+    console.log('from win or looose', response, this);
+    if (response === 'Winner') {
+      this.setState ({
+        score: this.state.score + 1
+      })
+    }
+    this.setState({
+      answerID: null,
+      myAnswer: response,
+    })
+    setTimeout(this.Question,1000);
+    setTimeout(this.RemoveSelected,1000);
+  }
+
+  submitAnswer(ansID){
+    var url = './api/answer';
+    var data = { id: this.state.data.id, answer: ansID };
+
+    fetch(url, {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers:{ 'Content-Type': 'application/json' }
+    }).then(res => res.json())
+    .then((response) => {
+      this.handleWinOrLoose(response)
+    },
+    (error) => {
+      this.setState({
+        error
+      });
+    })
+  }
+
   render() {
-    const { error, isLoaded, data, myAnswer, answerID } = this.state;
+    const { error, isLoaded, data, myAnswer, answerID, score, questionCount } = this.state;
     if (error) {
       return <div>Error: {error.message || "Error"}</div>;
     } else if (!isLoaded) {
@@ -52,12 +124,15 @@ class App extends Component {
         <div className="App">
           <div className="section hero-section">
             <h1>Quizy</h1>
+            <div className="score">
+              {score}/{questionCount}
+            </div>
           </div>
           <div className="section question-section">
-            <h2 className="question">{data.question}</h2>
+            <h2 className="question">Q: {data.question}</h2>
           </div>
           <div className="section submit-section">
-            <div className="button" data-my-answer={answerID} onClick={ event => this.submitAnswerPost(answerID)}>{ myAnswer || 'Pick your answer'}</div>
+            <div className="button" data-my-answer={answerID} onClick={ event => this.submitAnswer(answerID)}>{ myAnswer || 'Pick your answer'}</div>
           </div>
           <div className="section options-section">
             <div className="option" id="option_1" onClick={ event => this.selectAnswer(event)}>
@@ -76,90 +151,6 @@ class App extends Component {
         </div>
       );
     }
-  }
-
-  selectAnswer(e) {
-    //get the option id
-    const answerID = e.target.id.replace('option_','');
-    const answer = 'Submit Answer: ' + answerID;
-
-    //User selects a new answer
-    if(answerID !== this.state.answerID) {
-      //Update submit section
-      this.setState({
-        myAnswer: answer,
-        answerID: answerID
-      });
-      this.removeSelectedBound();
-      e.target.classList.add('selected');
-    } else {
-      // User has de-selected the same answer
-      //Update submit section
-      this.setState({
-        myAnswer: null,
-        answerID: null
-      });
-      //remove all options with selected class;
-      e.target.classList.remove('selected');
-    }
-  }
-
-  removeSelectedBound = this.removeSelected.bind(this);
-  removeSelected(){
-    const all = document.querySelectorAll('.selected');
-    if(all) {
-      all.forEach((node)=> {
-        node.classList.toggle('selected');
-      })
-    }
-  }
-
-  submitAnswerGet(ans){
-    if(ans){
-      fetch(`http://localhost:4000/api/answer?id=${this.state.data.id}&answer=${ans}`)
-        .then(res => res.json())
-        .then((result) => {
-          this.setState({
-            answerID: null,
-            myAnswer: result
-          })
-          setTimeout(this.Question,1000);
-          setTimeout(this.removeSelectedBound,1000);
-          // this.Question();
-      },
-      (error) => {
-        this.setState({
-          error
-        });
-      });
-    }
-  }
-
-  //update this to fetch and it should work
-  submitAnswerPost(ans){
-    var url = 'http://localhost:4000/api/answer';
-    var data = { id: this.state.data.id, answer: ans };
-
-    fetch(url, {
-      method: 'POST', // or 'PUT'
-      body: JSON.stringify(data), // data can be `string` or {object}!
-      headers:{
-        'Content-Type': 'application/json'
-      }
-    }).then(res => res.json())
-    .then((response) => {
-      this.setState({
-        answerID: null,
-        myAnswer: response
-      })
-      setTimeout(this.Question,1000);
-      setTimeout(this.removeSelectedBound,1000);
-    },
-    (error) => {
-      this.setState({
-        error
-      });
-    })
   }
 }
 export default App

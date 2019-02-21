@@ -43,6 +43,13 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+
+  .score {
+    position: absolute;
+    right: 6px;
+    bottom: 3px;
+  }
 }
 
 .question-section {
@@ -71,6 +78,11 @@ body {
   }
 }
 
+.touch {
+  .option:hover {
+    background: inherit;
+  }
+}
 .options-section {
   .option {
     margin: 6px;
