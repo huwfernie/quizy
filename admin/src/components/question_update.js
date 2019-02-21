@@ -80,7 +80,7 @@ class QuestionUpdate extends React.Component {
           <input className="item input-item" value={this.state.option_4} onChange={ (event) => this.handleChange('option_4', event.target.value) } />
           <input className="item input-item" value={this.state.answer} onChange={ (event) => this.handleChange('answer', event.target.value) } />
           <input className="item input-item" value={this.state.status} onChange={ (event) => this.handleChange('status', event.target.value) } />
-          <input className="item input-item" defaultValue='ID' />
+          <div className="item input-item id" >{this.state.id}</div>
             <button onClick={ event => this.handleSubmit() }>Update</button>
         </div>
       </div>

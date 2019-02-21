@@ -4,13 +4,13 @@ class QuestionCreate extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      question: 'question',
-      option_1: 'option_1',
-      option_2: 'option_2',
-      option_3: 'option_3',
-      option_4: 'option_4',
-      answer: 0,
-      status: 'status'
+      question: '',
+      option_1: '',
+      option_2: '',
+      option_3: '',
+      option_4: '',
+      answer: '',
+      status: 'pending'
     };
   }
 
@@ -49,14 +49,14 @@ class QuestionCreate extends React.Component {
           <div className="item">id</div>
         </div>
         <div className="container">
-          <input className="item" defaultValue={this.state.question} onChange={ event => this.setState({question: event.target.value}) } />
-          <input className="item" defaultValue={this.state.option_1} onChange={ event => this.setState({option_1: event.target.value}) } />
-          <input className="item" defaultValue={this.state.option_2} onChange={ event => this.setState({option_2: event.target.value}) } />
-          <input className="item" defaultValue={this.state.option_3} onChange={ event => this.setState({option_3: event.target.value}) } />
-          <input className="item" defaultValue={this.state.option_4} onChange={ event => this.setState({option_4: event.target.value}) } />
-          <input className="item" defaultValue={this.state.answer} onChange={ event => this.setState({answer: event.target.value}) } />
-          <input className="item" defaultValue={this.state.status} onChange={ event => this.setState({status: event.target.value}) } />
-          <input className="item" defaultValue='ID' />
+          <input className="item" defaultValue={this.state.question} placeholder="question" onChange={ event => this.setState({question: event.target.value}) } />
+          <input className="item" defaultValue={this.state.option_1} placeholder="option_1" onChange={ event => this.setState({option_1: event.target.value}) } />
+          <input className="item" defaultValue={this.state.option_2} placeholder="option_2" onChange={ event => this.setState({option_2: event.target.value}) } />
+          <input className="item" defaultValue={this.state.option_3} placeholder="option_3" onChange={ event => this.setState({option_3: event.target.value}) } />
+          <input className="item" defaultValue={this.state.option_4} placeholder="option_4" onChange={ event => this.setState({option_4: event.target.value}) } />
+          <input className="item" defaultValue={this.state.answer} placeholder="correct answer" onChange={ event => this.setState({answer: event.target.value}) } />
+          <input className="item" defaultValue={this.state.status} placeholder="status" onChange={ event => this.setState({status: event.target.value}) } />
+          <div className="item" defaultValue='ID' >ID</div>
           <button onClick={ event => this.newQuestionPost(this.state) }>Create</button>
         </div>
       </div>
