@@ -20,6 +20,7 @@ class Music extends React.Component {
 
     if (this.state.muted) {
       this.backgroundAudio.volume = 0.3;
+      this.backgroundAudio.loop = true;
       this.backgroundAudio.play();
       this.setState({
         muted: false
