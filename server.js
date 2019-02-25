@@ -41,3 +41,5 @@ app.get('*', (req, res) => {
 app.use(errorHandler);
 
 app.listen(port, () => console.log(`Express is listening on port ${port}`));
+
+module.exports = app;
