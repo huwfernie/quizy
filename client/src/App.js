@@ -1,5 +1,8 @@
-import React, { Component } from 'react'
-import './App.scss'
+import React, { Component } from 'react';
+import './App.scss';
+import Music from './components/music';
+
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -19,6 +22,12 @@ class App extends Component {
   componentDidMount() {
     this.Question();
   }
+
+  playThis(audio,volume) {
+    audio = new Audio(`./assets/${audio}.mp3`);
+    audio.volume = (volume/10);
+    audio.play();
+  };
 
   getQuestion() {
     fetch("./api/question/")
@@ -84,12 +93,16 @@ class App extends Component {
     if (response === 'Winner') {
       this.setState ({
         score: this.state.score + 1
-      })
+      });
+      this.playThis('ding',9);
+    } else {
+      this.playThis('gong',2);
     }
+    //reset the board
     this.setState({
       answerID: null,
       myAnswer: response,
-    })
+    });
     setTimeout(this.Question,1000);
     setTimeout(this.RemoveSelected,1000);
   }
@@ -124,6 +137,7 @@ class App extends Component {
         <div className="App">
           <div className="section hero-section">
             <h1>Quizy</h1>
+            <Music />
             <div className="score">
               {score}/{questionCount}
             </div>
