@@ -44,6 +44,9 @@ beforeEach((done) => {
   Question.create(testData, done);
 });
 
+//
+// Test get all route
+//
 describe('GET /api/allQuestions', () => {
 
   it('should return a 200 response', (done) => {
@@ -62,7 +65,40 @@ describe('GET /api/allQuestions', () => {
   it('should return 4 questions', (done) => {
     app.get('/api/allQuestions')
       .end((err, res) => {
-        res.body.should.have.length(3);
+        res.body.should.have.length(4);
+        done();
+      });
+  });
+
+});
+
+//
+// Test get random question route
+//
+describe('GET /api/question', () => {
+
+  it('should return a 200 response', (done) => {
+    app.get('/api/question')
+      .expect(200, done);
+  });
+
+  it('should return an object', (done) => {
+    app.get('/api/question')
+      .end((err, res) => {
+        res.body.should.be.an('object');
+        done();
+      });
+  });
+
+  it('should return 1 question, with 4 options', (done) => {
+    app.get('/api/question')
+      .end((err, res) => {
+        res.body.question.should.be.a('string');
+        res.body.option_1.should.be.a('string');
+        res.body.option_2.should.be.a('string');
+        res.body.option_3.should.be.a('string');
+        res.body.option_4.should.be.a('string');
+        res.body.answer.should.be.a('number');
         done();
       });
   });
