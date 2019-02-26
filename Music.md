@@ -16,4 +16,10 @@ http://soundbible.com/1496-Japanese-Temple-Bell-Small.html
 
 ## Images:
 
+Speaker / Muted icon
+
 https://icons8.com/icon/set/muted-speaker/metro
+
+Star:
+
+<a href="https://www.freepik.com/free-photos-vectors/logo">Logo vector created by rawpixel.com - www.freepik.com</a>

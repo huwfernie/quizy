@@ -4,34 +4,40 @@ class Music extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      muted: false,
+      muted: this.props.muted,
       playing: false,
       level: 3
+    }
+
+    this.updateMuted = this.props.updateMuted;
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps){
+    if(nextProps.muted !== this.props.muted){
+      this.setState({
+        muted: nextProps.muted
+      });
     }
   }
 
   backgroundAudio = new Audio(`../../assets/background.mp3`);
 
   componentDidMount() {
-    this.handleClick();
+    // this.handleClick();
   }
 
   handleClick() {
-
     if (this.state.muted) {
-      this.backgroundAudio.volume = 0.3;
+      this.backgroundAudio.volume = 0.1;
       this.backgroundAudio.loop = true;
       this.backgroundAudio.play();
-      this.setState({
-        muted: false
-      })
+      this.updateMuted();
     } else {
       this.backgroundAudio.pause();
-      this.setState({
-        muted: true
-      })
+      this.updateMuted();
     }
-
+    console.log('huw handleClick',this.state.muted);
   }
 
   render() {

@@ -121,3 +121,11 @@ body {
     background-image: url('./assets/icon-muted.png');
   }
 }
+
+.star {
+  width: 100px;
+  height: 100px;
+  background-image: url('./assets/star.jpg');
+  position: absolute;
+  background-size: contain;
+}

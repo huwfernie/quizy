@@ -15,7 +15,8 @@ class App extends Component {
       myAnswer: null,
       answerID: null,
       score: 0,
-      questionCount: -1
+      questionCount: -1,
+      muted: true
     };
   }
 
@@ -89,14 +90,10 @@ class App extends Component {
   RemoveSelected = this.removeSelected.bind(this);
 
   handleWinOrLoose(response) {
-    console.log('from win or looose', response, this);
     if (response === 'Winner') {
-      this.setState ({
-        score: this.state.score + 1
-      });
-      this.playThis('ding',9);
+      this.HandleWin();
     } else {
-      this.playThis('gong',2);
+      this.HandleLoose();
     }
     //reset the board
     this.setState({
@@ -106,6 +103,40 @@ class App extends Component {
     setTimeout(this.Question,1000);
     setTimeout(this.RemoveSelected,1000);
   }
+  HandleWinOrLoose = this.handleWinOrLoose.bind(this);
+
+  handleWin() {
+    this.setState ({
+      score: this.state.score + 1
+    });
+    if (!this.state.muted) {
+      this.playThis('ding',9);
+    }
+    console.log('starry');
+  }
+  HandleWin = this.handleWin.bind(this);
+
+  handleLoose() {
+    if (!this.state.muted) {
+      this.playThis('gong',2);
+    }
+  }
+  HandleLoose = this.handleLoose.bind(this);
+
+  updateMuted() {
+    if (this.state.muted) {
+      this.setState({
+        muted: false
+      })
+    } else {
+      this.setState({
+        muted: true
+      })
+    }
+    setTimeout(()=>{window.console.log('muted is now', this.state.muted)},500);
+  }
+  UpdateMuted = this.updateMuted.bind(this);
+
 
   submitAnswer(ansID){
     var url = './api/answer';
@@ -117,7 +148,7 @@ class App extends Component {
       headers:{ 'Content-Type': 'application/json' }
     }).then(res => res.json())
     .then((response) => {
-      this.handleWinOrLoose(response)
+      this.HandleWinOrLoose(response)
     },
     (error) => {
       this.setState({
@@ -136,8 +167,8 @@ class App extends Component {
       return (
         <div className="App">
           <div className="section hero-section">
-            <h1>Quizy</h1>
-            <Music />
+            <h1>Quizy {this.state.muted ? 'true':'false'}</h1>
+            <Music muted={ this.state.muted } updateMuted={ this.UpdateMuted } />
             <div className="score">
               {score}/{questionCount}
             </div>
@@ -146,6 +177,7 @@ class App extends Component {
             <h2 className="question">Q: {data.question}</h2>
           </div>
           <div className="section submit-section">
+            <span className="star">star</span>
             <div className="button" data-my-answer={answerID} onClick={ event => this.submitAnswer(answerID)}>{ myAnswer || 'Pick your answer'}</div>
           </div>
           <div className="section options-section">
