@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './App.scss';
 import Music from './components/music';
+import Star from './components/star';
+import { CSSTransitionGroup } from 'react-transition-group' // ES6
 
 
 class App extends Component {
@@ -16,7 +18,9 @@ class App extends Component {
       answerID: null,
       score: 0,
       questionCount: -1,
-      muted: true
+      muted: true,
+      items: [1],
+      star: false
     };
   }
 
@@ -112,7 +116,8 @@ class App extends Component {
     if (!this.state.muted) {
       this.playThis('ding',9);
     }
-    console.log('starry');
+    this.setState({star: true});
+    setTimeout(()=>{this.setState({ star: false})}, 500);
   }
   HandleWin = this.handleWin.bind(this);
 
@@ -158,6 +163,8 @@ class App extends Component {
   }
 
   render() {
+    const star = (this.state.star) ? <Star /> : null;
+
     const { error, isLoaded, data, myAnswer, answerID, score, questionCount } = this.state;
     if (error) {
       return <div>Error: {error.message || "Error"}</div>;
@@ -177,7 +184,12 @@ class App extends Component {
             <h2 className="question">Q: {data.question}</h2>
           </div>
           <div className="section submit-section">
-            <span className="star">star</span>
+            <CSSTransitionGroup
+              transitionName="score"
+              transitionEnterTimeout={1000}
+              transitionLeaveTimeout={3000}>
+              {star}
+            </CSSTransitionGroup>
             <div className="button" data-my-answer={answerID} onClick={ event => this.submitAnswer(answerID)}>{ myAnswer || 'Pick your answer'}</div>
           </div>
           <div className="section options-section">

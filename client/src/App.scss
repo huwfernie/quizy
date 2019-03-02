@@ -122,10 +122,4 @@ body {
   }
 }
 
-.star {
-  width: 100px;
-  height: 100px;
-  background-image: url('./assets/star.jpg');
-  position: absolute;
-  background-size: contain;
-}
+@import 'sass/star';
