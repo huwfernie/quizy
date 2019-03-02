@@ -37,7 +37,6 @@ class Music extends React.Component {
       this.backgroundAudio.pause();
       this.updateMuted();
     }
-    console.log('huw handleClick',this.state.muted);
   }
 
   render() {

@@ -138,7 +138,6 @@ class App extends Component {
         muted: true
       })
     }
-    setTimeout(()=>{window.console.log('muted is now', this.state.muted)},500);
   }
   UpdateMuted = this.updateMuted.bind(this);
 
