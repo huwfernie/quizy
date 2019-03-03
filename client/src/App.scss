@@ -76,11 +76,6 @@ body {
     border: 1px solid $appBackgroundContrast;
     box-sizing: border-box;
     border-radius: 5px;
-
-    &:hover {
-      transition: background 1s;
-      background: $appBackgroundContrast;
-    }
   }
 }
 
@@ -123,3 +118,4 @@ body {
 }
 
 @import 'sass/star';
+@import 'sass/shake';

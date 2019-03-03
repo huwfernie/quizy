@@ -23,7 +23,6 @@ $time: 1000ms;
 
 @keyframes spin{
 	100%{
-		-webkit-transform:rotate(720deg);
 		transform:rotate(720deg);
 	}
 }

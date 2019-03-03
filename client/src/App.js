@@ -125,6 +125,12 @@ class App extends Component {
     if (!this.state.muted) {
       this.playThis('gong',2);
     }
+    let score = document.querySelector('.score');
+    score.classList.add('shake');
+    setTimeout(()=>{score.classList.remove('shake')}, 1500);
+    let root = document.querySelector('#root');
+    root.classList.add('shake');
+    setTimeout(()=>{root.classList.remove('shake')}, 750);
   }
   HandleLoose = this.handleLoose.bind(this);
 
@@ -173,7 +179,7 @@ class App extends Component {
       return (
         <div className="App">
           <div className="section hero-section">
-            <h1>Quizy {this.state.muted ? 'true':'false'}</h1>
+            <h1>Quizzy</h1>
             <Music muted={ this.state.muted } updateMuted={ this.UpdateMuted } />
             <div className="score">
               {score}/{questionCount}
