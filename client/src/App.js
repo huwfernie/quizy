@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import './App.scss';
 import Music from './components/music';
 import Star from './components/star';
-import { CSSTransitionGroup } from 'react-transition-group' // ES6
+import SubmitSection from './components/submitSection';
+import OptionsSection from './components/optionsSection';
 
 
 class App extends Component {
@@ -60,28 +61,18 @@ class App extends Component {
   selectAnswer(event) {
     //get the option id
     const answerID = event.target.id.replace('option_','');
-    const answer = 'Submit Answer: ' + answerID;
 
     //User selects a new answer
-    if(answerID !== this.state.answerID) {
+    if(answerID) {
       //Update submit section
       this.setState({
-        myAnswer: answer,
         answerID: answerID
       });
-      this.RemoveSelected();
       event.target.classList.add('selected');
-    } else {
-      // User has de-selected the same answer
-      //Update submit section
-      this.setState({
-        myAnswer: null,
-        answerID: null
-      });
-      //remove selected class from this option;
-      event.target.classList.remove('selected');
+      this.submitAnswer(answerID);
     }
   }
+  SelectAnswer = this.selectAnswer.bind(this);
 
   removeSelected(){
     const all = document.querySelectorAll('.selected');
@@ -104,8 +95,8 @@ class App extends Component {
       answerID: null,
       myAnswer: response,
     });
-    setTimeout(this.Question,1000);
-    setTimeout(this.RemoveSelected,1000);
+    setTimeout(this.Question,2000);
+    setTimeout(this.RemoveSelected,2000);
   }
   HandleWinOrLoose = this.handleWinOrLoose.bind(this);
 
@@ -128,9 +119,13 @@ class App extends Component {
     let score = document.querySelector('.score');
     score.classList.add('shake');
     setTimeout(()=>{score.classList.remove('shake')}, 1500);
-    let root = document.querySelector('#root');
-    root.classList.add('shake');
-    setTimeout(()=>{root.classList.remove('shake')}, 750);
+    let sections = document.querySelectorAll('.section, .option');
+    sections.forEach((section, index) => {
+      setTimeout(()=>{
+        section.classList.add('shake');
+        setTimeout(()=>{section.classList.remove('shake')}, 750);
+      }, 100*index);
+    });
   }
   HandleLoose = this.handleLoose.bind(this);
 
@@ -146,7 +141,6 @@ class App extends Component {
     }
   }
   UpdateMuted = this.updateMuted.bind(this);
-
 
   submitAnswer(ansID){
     var url = './api/answer';
@@ -170,7 +164,7 @@ class App extends Component {
   render() {
     const star = (this.state.star) ? <Star /> : null;
 
-    const { error, isLoaded, data, myAnswer, answerID, score, questionCount } = this.state;
+    const { error, isLoaded, data, myAnswer, score, questionCount } = this.state;
     if (error) {
       return <div>Error: {error.message || "Error"}</div>;
     } else if (!isLoaded) {
@@ -180,7 +174,7 @@ class App extends Component {
         <div className="App">
           <div className="section hero-section">
             <h1>Quizzy</h1>
-            <Music muted={ this.state.muted } updateMuted={ this.UpdateMuted } />
+            <Music muted={this.state.muted} updateMuted={this.UpdateMuted} />
             <div className="score">
               {score}/{questionCount}
             </div>
@@ -188,29 +182,8 @@ class App extends Component {
           <div className="section question-section">
             <h2 className="question">Q: {data.question}</h2>
           </div>
-          <div className="section submit-section">
-            <CSSTransitionGroup
-              transitionName="score"
-              transitionEnterTimeout={1000}
-              transitionLeaveTimeout={3000}>
-              {star}
-            </CSSTransitionGroup>
-            <div className="button" data-my-answer={answerID} onClick={ event => this.submitAnswer(answerID)}>{ myAnswer || 'Pick your answer'}</div>
-          </div>
-          <div className="section options-section">
-            <div className="option" id="option_1" onClick={ event => this.selectAnswer(event)}>
-              {data.option_1}
-            </div>
-            <div className="option" id="option_2" onClick={ event => this.selectAnswer(event)}>
-              {data.option_2}
-            </div>
-            <div className="option" id="option_3" onClick={ event => this.selectAnswer(event)}>
-              {data.option_3}
-            </div>
-            <div className="option" id="option_4" onClick={ event => this.selectAnswer(event)}>
-              {data.option_4}
-            </div>
-          </div>
+          <SubmitSection star={star} myAnswer={myAnswer} />
+          <OptionsSection data={data} selectAnswer={this.SelectAnswer} />
         </div>
       );
     }
