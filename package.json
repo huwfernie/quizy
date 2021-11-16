@@ -15,7 +15,7 @@
   "author": "Huw Fernie",
   "license": "ISC",
   "dependencies": {
-    "aws-sdk": "^2.74.0",
+    "aws-sdk": "^2.814.0",
     "bluebird": "^3.5.0",
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
