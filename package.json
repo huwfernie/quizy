@@ -18,7 +18,7 @@
     "aws-sdk": "^2.74.0",
     "bluebird": "^3.5.0",
     "body-parser": "^1.17.1",
-    "express": "^4.15.2",
+    "express": "^4.17.3",
     "mongoose": "^4.8.6",
     "morgan": "^1.8.1",
     "request": "^2.81.0",
